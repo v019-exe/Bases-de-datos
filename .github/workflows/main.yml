@@ -14,6 +14,16 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Usa el token secreto
 
+      - name: Modify File Randomly
+        shell: powershell # Usa Windows PowerShell
+        run: |
+          $filePath = "random_file.txt" # Nombre del archivo
+          if (-not (Test-Path $filePath)) {
+            Set-Content -Path $filePath -Value "." # Crea el archivo si no existe
+          } else {
+            Add-Content -Path $filePath -Value "." # Agrega un punto al archivo
+          }
+
       - name: Auto Commit Changes
         shell: powershell # Usa Windows PowerShell
         run: |
