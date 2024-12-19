@@ -1,32 +1,21 @@
-name: Auto Commit
+name: Auto Commit Every Minute
 
 on:
   schedule:
-    - cron: '* * * * *'  # Esto ejecuta el workflow cada minuto
+    - cron: "*/1 * * * *" # Ejecutar cada minuto
+  workflow_dispatch: # Permitir ejecución manual
 
 jobs:
-  commit_changes:
-    runs-on: ubuntu-latest
+  auto-commit:
+    runs-on: self-hosted
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python (si es necesario)
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'  # Asegúrate de que esté configurado si es necesario
-
-      - name: Make changes (si lo deseas)
+      - name: Auto Commit Changes
         run: |
-          echo "No changes, but committing" >> dummyfile.txt
-          git add dummyfile.txt
-          git commit -m "Automated commit"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+          git add -A
+          git commit -m "Auto commit $(date)"
           git push
-
-      - name: Push changes to repository
-        run: |
-          git config --global user.name "v019-exe"
-          git config --global user.email "v019.exe@gmail.com"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
