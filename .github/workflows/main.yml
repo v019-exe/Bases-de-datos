@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Esto ejecuta el workflow a medianoche todos los días
+    - cron: '* * * * *'  # Esto ejecuta el workflow cada minuto
 
 jobs:
   commit_changes:
