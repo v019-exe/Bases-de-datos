@@ -2,7 +2,7 @@ name: Auto Commit Every Minute
 
 on:
   schedule:
-    - cron: "*/1 * * * *" # Ejecutar cada minuto
+    - cron: "*/5 * * * *" # Ejecutar cada minuto
   workflow_dispatch: # Permitir ejecución manual
 
 jobs:
