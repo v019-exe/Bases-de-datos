@@ -1,0 +1,32 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Esto ejecuta el workflow a medianoche todos los días
+
+jobs:
+  commit_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python (si es necesario)
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Asegúrate de que esté configurado si es necesario
+
+      - name: Make changes (si lo deseas)
+        run: |
+          echo "No changes, but committing" >> dummyfile.txt
+          git add dummyfile.txt
+          git commit -m "Automated commit"
+          git push
+
+      - name: Push changes to repository
+        run: |
+          git config --global user.name "v019-exe"
+          git config --global user.email "v019.exe@gmail.com"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
