@@ -11,11 +11,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Auto Commit Changes
         run: |
           git config --global user.name "v019-exe"
-          git config --global user.email "v019.exe@gmail.com"
+          git config --global user.email "v019-exe@example.com"
           git add -A
-          git commit -m "Auto commit $(date)"
-          git push
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Auto commit $(date)"
+            git push
+          fi
