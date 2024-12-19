@@ -2,8 +2,8 @@ name: Auto Commit Every Minute
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
-  workflow_dispatch:
+    - cron: "*/1 * * * *" # Ejecutar cada minuto
+  workflow_dispatch: # Permitir ejecución manual
 
 jobs:
   auto-commit:
@@ -12,9 +12,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Usa el token secreto
 
       - name: Auto Commit Changes
+        shell: bash # Especifica Bash como shell
         run: |
           git config --global user.name "v019-exe"
           git config --global user.email "v019-exe@example.com"
