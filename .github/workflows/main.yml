@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Usa el token secreto
 
       - name: Auto Commit Changes
-        shell: pwsh # Usa PowerShell
+        shell: powershell # Usa Windows PowerShell
         run: |
           git config --global user.name "v019-exe"
           git config --global user.email "v019-exe@example.com"
